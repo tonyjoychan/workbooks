@@ -22,6 +22,6 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          resourceGroupName: <your-resource-group>
+          resourceGroupName: my-resource-group-name
           template: ./AzureOrphanedResources.workbook
           parameters: ''
