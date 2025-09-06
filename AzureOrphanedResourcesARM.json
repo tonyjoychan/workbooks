@@ -5,7 +5,7 @@
     {
       "type": "Microsoft.Insights/workbooks",
       "apiVersion": "2022-10-01",
-      "location": "South India",
+      "location": "centralindia",
       "name": "TonyJoychanAzureOrphanedResources",
       "properties": {
         "displayName": "Orphaned Resources",
