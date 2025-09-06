@@ -26,3 +26,4 @@ jobs:
         resourceGroupName: my-resource-group-name
         template: ./AzureOrphanedResourcesARM.json
         parameters: ''
+        failOnStdErr: false
