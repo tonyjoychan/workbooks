@@ -3,25 +3,26 @@ name: Deploy Azure Workbook
 on:
   push:
     paths:
-      - 'AzureOrphanedResources.workbook'
+      - 'AzureOrphanedResourcesARM.json'
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Workbook
-        uses: azure/arm-deploy@v1
-        with:
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          resourceGroupName: my-resource-group-name
-          template: ./AzureOrphanedResources.workbook
-          parameters: ''
+    - name: Deploy Workbook
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: my-resource-group-name
+        template: ./AzureOrphanedResourcesARM.json
+        parameters: ''
