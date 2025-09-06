@@ -2,26 +2,31 @@ name: Deploy Azure Workbook
 
 on:
   push:
+    branches:
+      - main
     paths:
-      - 'AzureOrphanedResources.workbook'
-  workflow_dispatch:
+      - 'workbook.json'  # Trigger workflow only if workbook.json changes
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Azure Login
-        uses: azure/login@v2
+      - name: Login to Azure
+        uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      - name: Deploy Workbook
+      - name: Deploy workbook ARM template
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          resourceGroupName: my-resource-group-name
-          template: ./AzureOrphanedResources.workbook
-          parameters: ''
+          resourceGroupName: 'my-resource-group-name'  # Replace with your resource group
+          template: './workbook.json'
+          deploymentName: 'workbook-deployment'
